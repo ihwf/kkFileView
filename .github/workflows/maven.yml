@@ -28,4 +28,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: kkFileView
-        path: target/
+        path: /home/runner/work/kkFileView/kkFileView/server/target/
