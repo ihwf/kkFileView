@@ -98,11 +98,6 @@
             window.luckysheet.create({
                 container: 'luckysheet', //luckysheet is the container id
                 lang: "zh",
-                showtoolbarConfig:{
-                    image: true,
-                    print: true, //关闭打印按钮  启用也不能用 等以后看情况而定
-                    exportXlsx: true, //关闭导出按钮  启用也不能用  等以后看情况而定
-                },
                 allowCopy: true, // 是否允许拷贝
                 showtoolbar: false, // 是否显示工具栏
                 showinfobar: false, // 是否显示顶部信息栏
