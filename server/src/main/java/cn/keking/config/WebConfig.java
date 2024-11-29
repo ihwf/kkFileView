@@ -89,8 +89,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean<AttributeSetFilter> getWatermarkConfigFilter() {
         Set<String> filterUri = new HashSet<>();
-        filterUri.add("/index");
-        filterUri.add("/");
+        filterUri.add("/onlinetest");
+        // filterUri.add("/");
         filterUri.add("/onlinePreview");
         filterUri.add("/picturesPreview");
         AttributeSetFilter filter = new AttributeSetFilter();
