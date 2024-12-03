@@ -73,7 +73,6 @@ html += "    <style type=\"text/css\">";
 html += "        body {";
 html += "            margin: 0 auto;";
 html += "            width: 900px;";
-html += "            background-color: #CCB;";
 html += "        }";
 html += "";
 html += "        .container {";

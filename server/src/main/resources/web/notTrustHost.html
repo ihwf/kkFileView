@@ -6,7 +6,6 @@
         body {
             margin: 0 auto;
             width: 900px;
-            background-color: #CCB;
         }
 
         .container {
