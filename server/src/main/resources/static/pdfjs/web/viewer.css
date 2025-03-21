@@ -2747,18 +2747,18 @@ dialog :link {
   #outerContainer .hiddenLargeView {
     display: none;
   }
-  #outerContainer .visibleLargeView {
+/*   #outerContainer .visibleLargeView {
     display: inherit;
-  }
+  } */
 }
 
 @media all and (max-width: 750px) {
   #outerContainer .hiddenMediumView {
     display: none;
   }
-  #outerContainer .visibleMediumView {
+/*   #outerContainer .visibleMediumView {
     display: inherit;
-  }
+  } */
 }
 
 @media all and (max-width: 690px) {
