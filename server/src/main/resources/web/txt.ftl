@@ -35,7 +35,7 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
             </h4>
         </div> -->
         <div>
-          <ul id="divPagenation" class="pagination" ></ul>
+          <div id="divPagenation"></div>
           <div id="divContent" class="panel-body"></div>
         </div>
     </div>
@@ -146,7 +146,7 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
        //显示分页栏
         DHTMLpagenation.displayPage=function()
         {
-            strDisplayPagenation="";
+            strDisplayPagenation='<ul class="pagination">';
             if(currentPage && currentPage !=1)
             {
              
@@ -178,7 +178,8 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
             {
                 strDisplayPagenation+='<li class="disabled"><span>下一页</span></li>';
             }
-           strDisplayPagenation+="<br>共 " + pageSizeCount + " 页。每页" + perpageLength + " 字符，调整字符数：<input type='text' value='"+perpageLength+"' id='ctlPerpageLength' /><input type='button' value='确定' onclick='DHTMLpagenation.change()' />";
+	   strDisplayPagenation+='</ul>';
+           strDisplayPagenation+="<p>共 " + pageSizeCount + " 页。每页" + perpageLength + " 字符，调整字符数：<input type='text' value='"+perpageLength+"' id='ctlPerpageLength' /><input type='button' value='确定' onclick='DHTMLpagenation.change()' /></p>";
           divDisplayPagenation.innerHTML=strDisplayPagenation;
          };
 
