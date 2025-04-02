@@ -25,7 +25,7 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
     </style>
 
 
-	<div class="container">
+<div class="container">
     <div>
        /* <div class="panel-heading">
             <h4 class="panel-title">
@@ -35,11 +35,8 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
             </h4>
         </div> */
         <div>
-          <div id="divPagenation" class="black" >
-
-    </div>
-        <div id="divContent" class="panel-body">
-           </div>
+          <ul id="divPagenation" class="pagination" ></ul>
+          <div id="divContent" class="panel-body"></div>
         </div>
     </div>
 </div>
@@ -153,11 +150,11 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
             if(currentPage && currentPage !=1)
             {
              
-                 strDisplayPagenation+='<button  onclick="DHTMLpagenation.previous()">上一页</button>';
+                 strDisplayPagenation+='<li onclick="DHTMLpagenation.previous()"><span>上一页</span></li>';
             }
             else
             {
-                strDisplayPagenation+="上一页  ";
+                strDisplayPagenation+='<li class="disabled"><span>上一页</span></li>';
             }
 
             for(var i=1;i<=pageSizeCount;i++)
@@ -165,21 +162,21 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
                 if(i!=currentPage)
                 {
                   
-                     strDisplayPagenation+='<button onclick="DHTMLpagenation.goto('+i+');">'+i+'</button>';
+                     strDisplayPagenation+='<li onclick="DHTMLpagenation.goto('+i+');"><span>'+i+'</span></li>';
                 }
                 else
                 {
-                    strDisplayPagenation+=i+"  ";
+                    strDisplayPagenation+='<li class="active"><span>'+i+'</span></li>';
                 }
             }
 
             if(currentPage && currentPage!=pageSizeCount)
             {
-             strDisplayPagenation+='<button  onclick="DHTMLpagenation.next()">下一页</button>';
+             strDisplayPagenation+='<li  onclick="DHTMLpagenation.next()"><span>下一页</span></li>';
             }
             else
             {
-                strDisplayPagenation+="下一页  ";
+                strDisplayPagenation+='<li class="disabled"><span>下一页</span></li>';
             }
            strDisplayPagenation+="共 " + pageSizeCount + " 页。<br>每页" + perpageLength + " 字符，调整字符数：<input type='text' value='"+perpageLength+"' id='ctlPerpageLength' /><input type='button' value='确定' onclick='DHTMLpagenation.change()' />";
           divDisplayPagenation.innerHTML=strDisplayPagenation;
