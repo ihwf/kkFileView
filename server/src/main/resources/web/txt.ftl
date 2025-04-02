@@ -27,13 +27,13 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
 
 <div class="container">
     <div>
-       /* <div class="panel-heading">
+       <!--  <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                     ${file.name}
                 </a>
             </h4>
-        </div> */
+        </div> -->
         <div>
           <ul id="divPagenation" class="pagination" ></ul>
           <div id="divContent" class="panel-body"></div>
@@ -178,7 +178,7 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
             {
                 strDisplayPagenation+='<li class="disabled"><span>下一页</span></li>';
             }
-           strDisplayPagenation+="共 " + pageSizeCount + " 页。<br>每页" + perpageLength + " 字符，调整字符数：<input type='text' value='"+perpageLength+"' id='ctlPerpageLength' /><input type='button' value='确定' onclick='DHTMLpagenation.change()' />";
+           strDisplayPagenation+="<br>共 " + pageSizeCount + " 页。每页" + perpageLength + " 字符，调整字符数：<input type='text' value='"+perpageLength+"' id='ctlPerpageLength' /><input type='button' value='确定' onclick='DHTMLpagenation.change()' />";
           divDisplayPagenation.innerHTML=strDisplayPagenation;
          };
 
@@ -287,13 +287,13 @@ text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wr
  <#else/>
 <div class="container">
     <div>
-       /* <div class="panel-heading">
+       <!--  <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                     ${file.name}
                 </a>
             </h4>
-        </div> */
+        </div> -->
         <div>
             <div id="text"></div>
         </div>
