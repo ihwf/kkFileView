@@ -14,31 +14,27 @@
 <input hidden id="textData" value="${textData}"/>
 <#if "${file.suffix?html}" == "txt" || "${file.suffix?html}" == "log"  || "${file.suffix?html}" == "TXT"  || "${file.suffix?html}" == "LOG">
   <style type="text/css">
-DIV.black{line-height:25px;PADDING-RIGHT:1px;PADDING-LEFT:1px;FONT-SIZE:100%;MARGIN:1px;COLOR:#909090;BACKGROUND-COLOR:#000;TEXT-ALIGN:left}
+DIV.black{line-height:25px;PADDING-RIGHT:1px;PADDING-LEFT:1px;FONT-SIZE:100%;MARGIN:1px;COLOR:#909090;TEXT-ALIGN:left}
 DIV.black A{BORDER-RIGHT:#909090 1px solid;PADDING-RIGHT:5px;BACKGROUND-POSITION:50% bottom;BORDER-TOP:#909090 1px solid;PADDING-LEFT:5px;BACKGROUND-IMAGE:url();PADDING-BOTTOM:2px;BORDER-LEFT:#909090 1px solid;COLOR:#fff;MARGIN-RIGHT:3px;PADDING-TOP:2px;BORDER-BOTTOM:#909090 1px solid;TEXT-DECORATION:none}
 DIV.black A:hover{BORDER-RIGHT:#f0f0f0 1px solid;BORDER-TOP:#f0f0f0 1px solid;BACKGROUND-IMAGE:BORDER-LEFT:#f0f0f0 1px solid;COLOR:#ffffff;BORDER-BOTTOM:#f0f0f0 1px solid;BACKGROUND-COLOR:#404040}
 DIV.black A:active{BORDER-RIGHT:#f0f0f0 1px solid;BORDER-TOP:#f0f0f0 1px solid;BACKGROUND-IMAGE:BORDER-LEFT:#f0f0f0 1px solid;COLOR:#ffffff;BORDER-BOTTOM:#f0f0f0 1px solid;BACKGROUND-COLOR:#404040}
-.divContent{color:#fff;font-size：30px；
+.divContent{font-size：30px；
 line-height：30px；
 font-family：“SimHei”；
-text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;background-color:#000}
-input{
-color:#ffffff;
-background-color:#000000
-}
+text-indent:2em;padding-bottom:10px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;border:1px solid #ccc;padding: 0 10px;}
     </style>
 
 
 	<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div>
+       /* <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                     ${file.name}
                 </a>
             </h4>
-        </div>
-        <div class="panel-body">
+        </div> */
+        <div>
           <div id="divPagenation" class="black" >
 
     </div>
@@ -293,15 +289,15 @@ background-color:#000000
 </script>
  <#else/>
 <div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div>
+       /* <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                     ${file.name}
                 </a>
             </h4>
-        </div>
-        <div class="panel-body">
+        </div> */
+        <div>
             <div id="text"></div>
         </div>
     </div>
