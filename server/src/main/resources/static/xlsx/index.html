@@ -133,12 +133,9 @@
                         mc.add(pinch)
 
                         mc.on('pinch', function (ev) {
+                            var scale = ev.scale.toFixed(1)
                             window.luckysheet.setSheetZoom(
-                                ev.scale < 0.1
-                                    ? 0.1
-                                    : ev.scale > 4
-                                    ? 4
-                                    : ev.scale
+                                scale < 0.1 ? 0.1 : scale > 4 ? 4 : scale
                             )
                         })
                     }
