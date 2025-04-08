@@ -120,8 +120,9 @@
                             userInfo: exportJson.info.name.creator
                         })
 
-                        var luckysheetElement =
-                            document.getElementById('luckysheet')
+                        var luckysheetElement = document.getElementsByClassName(
+                            'luckysheet-cell-sheettable'
+                        )[0]
 
                         var mc = new Hammer.Manager(luckysheetElement)
 
