@@ -9,6 +9,7 @@
     <link rel='stylesheet' href='xlsx/assets/iconfont/iconfont.css' />
     <script src="xlsx/plugins/js/plugin.js"></script>
     <script src="xlsx/luckysheet.umd.js"></script>
+    <script src="xlsx/hammer.min.js"></script>
     <script src="js/watermark.js" type="text/javascript"></script>
     <script src="js/base64.min.js" type="text/javascript"></script>
 </head>
@@ -118,6 +119,34 @@
                         title: exportJson.info.name,
                         userInfo: exportJson.info.name.creator,
             });
+
+            setTimeout(function() {
+                var luckysheetElement = document.getElementsByClassName(
+                    'luckysheet-cell-sheettable'
+                )[0]
+
+                var mc = new Hammer.Manager(luckysheetElement)
+
+                // create a pinch recognizer
+                var pinch = new Hammer.Pinch()
+
+                // add to the Manager
+                mc.add(pinch)
+
+                var currentScale = 1
+
+                mc.on('pinch', function (ev) {
+                    var scale = ev.scale.toFixed(1) - 1
+                    currentScale += scale
+                    window.luckysheet.setSheetZoom(
+                        currentScale < 0.1
+                            ? 0.1
+                            : currentScale > 4
+                            ? 4
+                            : currentScale
+                    )
+                })
+            }, 1000)
         }, 1000);
     }
     loadText();
