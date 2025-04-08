@@ -132,10 +132,17 @@
                         // add to the Manager
                         mc.add(pinch)
 
+                        var currentScale = 1
+
                         mc.on('pinch', function (ev) {
-                            var scale = ev.scale.toFixed(1)
+                            var scale = ev.scale.toFixed(1) - 1
+                            currentScale += scale
                             window.luckysheet.setSheetZoom(
-                                scale < 0.1 ? 0.1 : scale > 4 ? 4 : scale
+                                currentScale < 0.1
+                                    ? 0.1
+                                    : currentScale > 4
+                                    ? 4
+                                    : currentScale
                             )
                         })
                     }
