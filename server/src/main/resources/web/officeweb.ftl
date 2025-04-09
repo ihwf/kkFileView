@@ -98,12 +98,17 @@
             window.luckysheet.destroy();
             window.luckysheet.create({
                 container: 'luckysheet', //luckysheet is the container id
-                lang: "zh",
+                lang: 'zh',
                 allowCopy: true, // 是否允许拷贝
                 showtoolbar: false, // 是否显示工具栏
                 showinfobar: false, // 是否显示顶部信息栏
                 // myFolderUrl: "/",//作用：左上角<返回按钮的链接
                 showsheetbar: true, // 是否显示底部sheet页按钮
+                showsheetbarConfig: {
+                    add: false,
+                    menu: false
+                    // sheet: false //sheet页显示
+                },
                 showstatisticBar: true, // 是否显示底部计数栏
                 sheetBottomConfig: true, // sheet页下方的添加行按钮和回到顶部按钮配置
                 allowEdit: false, // 是否允许前台编辑
@@ -113,40 +118,44 @@
                 showRowBar: true, // 是否显示行号区域
                 showColumnBar: false, // 是否显示列号区域
                 sheetFormulaBar: false, // 是否显示公式栏
-                enableAddBackTop: true,//返回头部按钮
+                enableAddBackTop: true, //返回头部按钮
                 forceCalculation: false, //下面是导出插件 默认关闭
-                        data: exportJson.sheets,
-                        title: exportJson.info.name,
-                        userInfo: exportJson.info.name.creator,
-            });
+                data: exportJson.sheets,
+                title: exportJson.info.name,
+                userInfo: exportJson.info.name.creator
+            })
 
-            setTimeout(function() {
-                var luckysheetElement = document.getElementsByClassName(
-                    'luckysheet-cell-sheettable'
-                )[0]
+            var luckysheetElement = document.getElementsByClassName(
+                'luckysheet-cell-sheettable'
+            )[0]
 
-                var mc = new Hammer.Manager(luckysheetElement)
+            var mc = new Hammer.Manager(luckysheetElement)
 
-                // create a pinch recognizer
-                var pinch = new Hammer.Pinch()
+            // create a pinch recognizer
+            var pinch = new Hammer.Pinch()
 
-                // add to the Manager
-                mc.add(pinch)
+            // add to the Manager
+            mc.add(pinch)
 
-                var currentScale = 1
+            var currentScale = 1
+            var lastScale = 1
+            var newScale = 1
 
-                mc.on('pinch', function (ev) {
-                    var scale = ev.scale.toFixed(1) - 1
-                    currentScale += scale
-                    window.luckysheet.setSheetZoom(
-                        currentScale < 0.1
-                            ? 0.1
-                            : currentScale > 4
-                            ? 4
-                            : currentScale
-                    )
-                })
-            }, 1000)
+            mc.on('pinchstart', function (ev) {
+                lastScale = currentScale
+            })
+
+            mc.on('pinch', function (ev) {
+                // 使用相对比例变化而不是绝对值
+                newScale = lastScale * ev.scale
+                // 限制缩放范围在0.1到4之间
+                newScale = Math.max(0.1, Math.min(4, newScale))
+                window.luckysheet.setSheetZoom(newScale)
+            })
+
+            mc.on('pinchend', function () {
+                currentScale = newScale
+            })
         }, 1000);
     }
     loadText();
