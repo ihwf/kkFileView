@@ -53,9 +53,28 @@
         window.location.href = url;
     }
 
+    // 监听iframe滚动事件, 发送滚动距离给父页面
+    function postScrollMessage() {
+        var iframe = document.getElementsByTagName('iframe')[0];
+        var doc = iframe.contentDocument || iframe.contentWindow?.document
+        doc.addEventListener('scroll', function (e) {
+            // 发送消息给父页面
+            window.parent.postMessage(
+                {
+                    type: 'scroll',
+                    scrollTop: e.target.documentElement.scrollTop,
+                    scrollLeft: e.target.documentElement.scrollLeft
+                },
+                '*'
+            )
+        })
+    }
+
     /*初始化水印*/
     window.onload = function () {
         initWaterMark();
+
+        postScrollMessage();
     }
 </script>
 </html>
