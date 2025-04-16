@@ -1161,6 +1161,14 @@ See https://github.com/adobe-type-tools/cmap-resources
         <input type="file" id="fileInput" class="hidden" />
     </body>
     <script type="text/javascript">
+        function sendReadyMessage() {
+            window.parent.parent.postMessage(
+                {
+                    type: 'online-preview-ispdf'
+                },
+                '*'
+            )
+        }
         // 监听iframe滚动事件, 发送滚动距离给父页面
         function postScrollMessage() {
             var viewerContainer = document.getElementById('viewerContainer')
@@ -1168,7 +1176,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                 // 发送消息给父页面
                 window.parent.parent.postMessage(
                     {
-                        type: 'scroll',
+                        type: 'online-preview-scroll',
                         scrollTop: e.target.scrollTop,
                         scrollLeft: e.target.scrollLeft,
                         scrollHeight: e.target.scrollHeight,
@@ -1179,7 +1187,19 @@ See https://github.com/adobe-type-tools/cmap-resources
             })
         }
 
+        function receiveScrollMessage(event) {
+            // 接收来自父页面的消息
+            if (event.data.type === 'online-preview-scroll') {
+                var viewerContainer = document.getElementById('viewerContainer')
+                viewerContainer.scrollTop = event.data.scrollTop
+                viewerContainer.scrollLeft = event.data.scrollLeft
+            }
+        }
+        // 监听来自父页面的消息
+        window.addEventListener('message', receiveScrollMessage, false)
+
         document.addEventListener('DOMContentLoaded', function () {
+            sendReadyMessage()
             // 页面加载完成后调用函数
             postScrollMessage()
         })
