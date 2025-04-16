@@ -29,4 +29,6 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: kkFileView
-                path: /home/runner/work/kkFileView/kkFileView/server/target/
+                path: |
+                    /home/runner/work/kkFileView/kkFileView/server/target/*.zip
+                    /home/runner/work/kkFileView/kkFileView/server/target/*.gz
