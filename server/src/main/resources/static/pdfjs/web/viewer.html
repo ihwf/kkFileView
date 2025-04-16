@@ -1169,8 +1169,10 @@ See https://github.com/adobe-type-tools/cmap-resources
                 window.parent.parent.postMessage(
                     {
                         type: 'scroll',
-                        scrollTop: e.target.documentElement.scrollTop,
-                        scrollLeft: e.target.documentElement.scrollLeft
+                        scrollTop: e.target.scrollTop,
+                        scrollLeft: e.target.scrollLeft,
+                        scrollHeight: e.target.scrollHeight,
+                        scrollWidth: e.target.scrollWidth
                     },
                     '*'
                 )
