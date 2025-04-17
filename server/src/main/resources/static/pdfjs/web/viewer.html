@@ -1161,10 +1161,24 @@ See https://github.com/adobe-type-tools/cmap-resources
         <input type="file" id="fileInput" class="hidden" />
     </body>
     <script type="text/javascript">
-        function sendReadyMessage() {
+        function createUid(len) {
+            var IDX = 36,
+                HEX = ''
+            while (IDX--) HEX += IDX.toString(36)
+            var str = '',
+                num = len || 11
+            while (num--) str += HEX[(Math.random() * 36) | 0]
+            return str
+        }
+
+        var uid = createUid()
+
+        function sendMessage(type, data) {
             window.parent.parent.postMessage(
                 {
-                    type: 'online-preview-ispdf'
+                    type: type || 'online-preview-ispdf',
+                    id: uid,
+                    data: data
                 },
                 '*'
             )
@@ -1176,6 +1190,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                 // 发送消息给父页面
                 window.parent.parent.postMessage(
                     {
+                        id: uid,
                         type: 'online-preview-scroll',
                         scrollTop: e.target.scrollTop,
                         scrollLeft: e.target.scrollLeft,
@@ -1187,19 +1202,45 @@ See https://github.com/adobe-type-tools/cmap-resources
             })
         }
 
-        function receiveScrollMessage(event) {
+        function receiveMessage(event) {
             // 接收来自父页面的消息
-            if (event.data.type === 'online-preview-scroll') {
-                var viewerContainer = document.getElementById('viewerContainer')
-                viewerContainer.scrollTop = event.data.scrollTop
-                viewerContainer.scrollLeft = event.data.scrollLeft
+            if (event.data.id == uid) {
+                // 接收滚动消息
+                if (event.data.type === 'online-preview-scroll') {
+                    var viewerContainer =
+                        document.getElementById('viewerContainer')
+                    viewerContainer.scrollTop = event.data.scrollTop
+                    viewerContainer.scrollLeft = event.data.scrollLeft
+                    // 接收搜索高亮消息
+                } else if (event.data.type === 'highlight') {
+                    window.PDFViewerApplication.findBar.findField.value =
+                        e.data.keyword
+                    window.PDFViewerApplication.findBar.highlightAll.checked = true
+                    window.PDFViewerApplication.findBar.dispatchEvent(
+                        'highlightallchange'
+                    )
+
+                    var RAF = setInterval(function () {
+                        if (
+                            window.PDFViewerApplication.findBar.findResultsCount
+                                .innerText
+                        ) {
+                            clearInterval(RAF)
+                            sendMessage('online-preview-highlight', {
+                                count: window.PDFViewerApplication.findBar.findResultsCount.innerText
+                                    .split('，')[1]
+                                    .split(' ')[1]
+                            })
+                        }
+                    }, 50)
+                }
             }
         }
         // 监听来自父页面的消息
-        window.addEventListener('message', receiveScrollMessage, false)
+        window.addEventListener('message', receiveMessage, false)
 
         document.addEventListener('DOMContentLoaded', function () {
-            sendReadyMessage()
+            sendMessage()
             // 页面加载完成后调用函数
             postScrollMessage()
         })
