@@ -1188,33 +1188,32 @@ See https://github.com/adobe-type-tools/cmap-resources
             var viewerContainer = document.getElementById('viewerContainer')
             viewerContainer.addEventListener('scroll', function (e) {
                 // 发送消息给父页面
-                window.parent.parent.postMessage(
-                    {
-                        id: uid,
-                        type: 'online-preview-scroll',
+                sendMessage({
+                    type: 'online-preview-scroll',
+                    data: {
                         scrollTop: e.target.scrollTop,
                         scrollLeft: e.target.scrollLeft,
                         scrollHeight: e.target.scrollHeight,
                         scrollWidth: e.target.scrollWidth
-                    },
-                    '*'
-                )
+                    }
+                })
             })
         }
 
         function receiveMessage(event) {
             // 接收来自父页面的消息
             if (event.data.id == uid) {
+                var data = event.data.data
                 // 接收滚动消息
                 if (event.data.type === 'online-preview-scroll') {
                     var viewerContainer =
                         document.getElementById('viewerContainer')
-                    viewerContainer.scrollTop = event.data.scrollTop
-                    viewerContainer.scrollLeft = event.data.scrollLeft
+                    viewerContainer.scrollTop = data.scrollTop
+                    viewerContainer.scrollLeft = data.scrollLeft
                     // 接收搜索高亮消息
-                } else if (event.data.type === 'highlight') {
+                } else if (event.data.type === 'online-preview-highlight') {
                     window.PDFViewerApplication.findBar.findField.value =
-                        e.data.keyword
+                        data.keyword
                     window.PDFViewerApplication.findBar.highlightAll.checked = true
                     window.PDFViewerApplication.findBar.dispatchEvent(
                         'highlightallchange'
