@@ -1188,14 +1188,11 @@ See https://github.com/adobe-type-tools/cmap-resources
             var viewerContainer = document.getElementById('viewerContainer')
             viewerContainer.addEventListener('scroll', function (e) {
                 // 发送消息给父页面
-                sendMessage({
-                    type: 'online-preview-scroll',
-                    data: {
-                        scrollTop: e.target.scrollTop,
-                        scrollLeft: e.target.scrollLeft,
-                        scrollHeight: e.target.scrollHeight,
-                        scrollWidth: e.target.scrollWidth
-                    }
+                sendMessage('online-preview-scroll', {
+                    scrollTop: e.target.scrollTop,
+                    scrollLeft: e.target.scrollLeft,
+                    scrollHeight: e.target.scrollHeight,
+                    scrollWidth: e.target.scrollWidth
                 })
             })
         }
