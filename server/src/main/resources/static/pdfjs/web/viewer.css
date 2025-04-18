@@ -56,7 +56,7 @@
 
 .textLayer .highlight {
     margin: -1px;
-    margin-top: -4px;
+    margin-top: -3px;
     padding: 1px;
     background-color: var(--highlight-bg-color);
     border-radius: 4px;

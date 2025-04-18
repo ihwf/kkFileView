@@ -1161,23 +1161,21 @@ See https://github.com/adobe-type-tools/cmap-resources
         <input type="file" id="fileInput" class="hidden" />
     </body>
     <script type="text/javascript">
-        function createUid(len) {
-            var IDX = 36,
-                HEX = ''
-            while (IDX--) HEX += IDX.toString(36)
-            var str = '',
-                num = len || 11
-            while (num--) str += HEX[(Math.random() * 36) | 0]
-            return str
+        // 获取 query 参数
+        function getQueryParam(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+            var r = window.location.search.substr(1).match(reg)
+            if (r != null) return unescape(r[2])
+            return null
         }
 
-        var uid = createUid()
+        var signalId = getQueryParam('signalId')
 
         function sendMessage(type, data) {
             window.parent.parent.postMessage(
                 {
                     type: type || 'online-preview-ispdf',
-                    id: uid,
+                    id: signalId,
                     data: data
                 },
                 '*'
@@ -1199,7 +1197,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
         function receiveMessage(event) {
             // 接收来自父页面的消息
-            if (event.data.id == uid) {
+            if (event.data.id == signalId) {
                 var data = event.data.data
                 // 接收滚动消息
                 if (event.data.type === 'online-preview-scroll') {
@@ -1222,10 +1220,13 @@ See https://github.com/adobe-type-tools/cmap-resources
                                 .innerText
                         ) {
                             clearInterval(RAF)
+                            var text =
+                                window.PDFViewerApplication.findBar
+                                    .findResultsCount.innerText
+                            var splitText = text.split('，')
                             sendMessage('online-preview-highlight', {
-                                count: window.PDFViewerApplication.findBar.findResultsCount.innerText
-                                    .split('，')[1]
-                                    .split(' ')[1]
+                                current: splitText[0].split(' ')[1],
+                                total: splitText[1].split(' ')[1]
                             })
                         }
                     }, 50)
