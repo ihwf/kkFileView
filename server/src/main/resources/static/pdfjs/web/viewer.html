@@ -44,6 +44,7 @@ See https://github.com/adobe-type-tools/cmap-resources
     </head>
 
     <body tabindex="1">
+        <div id="pdfLoading" class="pdf-loading"></div>
         <div id="outerContainer">
             <div id="sidebarContainer">
                 <div id="toolbarSidebar">
@@ -1241,10 +1242,48 @@ See https://github.com/adobe-type-tools/cmap-resources
         // 监听来自父页面的消息
         window.addEventListener('message', receiveMessage, false)
 
+        // 等待 PDFViewerApplication 初始化完成
+        function waitForPDFJS() {
+            if (
+                window.PDFViewerApplication &&
+                window.PDFViewerApplication.eventBus
+            ) {
+                // PDF.js 已经初始化完成，添加监听器
+                window.PDFViewerApplication.eventBus.on(
+                    'pagesloaded',
+                    function () {
+                        // 隐藏 loading
+                        document
+                            .getElementById('pdfLoading')
+                            .classList.add('hidden')
+                        sendMessage()
+                    }
+                )
+
+                // 监听渲染错误
+                window.PDFViewerApplication.eventBus.on(
+                    'documenterror',
+                    function (error) {
+                        // 隐藏 loading
+                        document
+                            .getElementById('pdfLoading')
+                            .classList.add('hidden')
+                        console.error('PDF 渲染错误:', error)
+                    }
+                )
+
+                // 监听 iframe 滚动事件
+                postScrollMessage()
+            } else {
+                // 如果还没初始化完成，等待100ms后重试
+                setTimeout(waitForPDFJS, 100)
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
-            sendMessage()
-            // 页面加载完成后调用函数
-            postScrollMessage()
+            // 显示 loading
+            document.getElementById('pdfLoading').classList.remove('hidden')
+            waitForPDFJS()
         })
     </script>
 </html>
