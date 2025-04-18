@@ -1217,16 +1217,21 @@ See https://github.com/adobe-type-tools/cmap-resources
                     var RAF = setInterval(function () {
                         if (
                             window.PDFViewerApplication.findBar.findResultsCount
+                                .innerText ||
+                            window.PDFViewerApplication.findBar.findMsg
                                 .innerText
                         ) {
                             clearInterval(RAF)
+                            var msg =
+                                window.PDFViewerApplication.findBar.findMsg
+                                    .innerText
                             var text =
                                 window.PDFViewerApplication.findBar
                                     .findResultsCount.innerText
                             var splitText = text.split('，')
                             sendMessage('online-preview-find', {
-                                current: splitText[0].split(' ')[1],
-                                total: splitText[1].split(' ')[1]
+                                current: msg ? 0 : splitText[0].split(' ')[1],
+                                total: msg ? 0 : splitText[1].split(' ')[1]
                             })
                         }
                     }, 50)
