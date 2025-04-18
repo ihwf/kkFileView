@@ -1206,7 +1206,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                     viewerContainer.scrollTop = data.scrollTop
                     viewerContainer.scrollLeft = data.scrollLeft
                     // 接收搜索高亮消息
-                } else if (event.data.type === 'online-preview-highlight') {
+                } else if (event.data.type === 'online-preview-find') {
                     window.PDFViewerApplication.findBar.findField.value =
                         data.keyword
                     window.PDFViewerApplication.findBar.highlightAll.checked = true
@@ -1224,7 +1224,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                                 window.PDFViewerApplication.findBar
                                     .findResultsCount.innerText
                             var splitText = text.split('，')
-                            sendMessage('online-preview-highlight', {
+                            sendMessage('online-preview-find', {
                                 current: splitText[0].split(' ')[1],
                                 total: splitText[1].split(' ')[1]
                             })
