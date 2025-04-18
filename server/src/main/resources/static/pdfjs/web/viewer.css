@@ -18,13 +18,6 @@
     --highlight-selected-bg-color: rgba(255, 0, 0, 1);
 }
 
-@media screen and (forced-colors: active) {
-    :root {
-        --highlight-bg-color: Highlight;
-        --highlight-selected-bg-color: ButtonText;
-    }
-}
-
 .pdf-loading {
     position: fixed;
     top: 0;
@@ -60,6 +53,7 @@
     text-align: initial;
     inset: 0;
     overflow: hidden;
+    opacity: 0.25;
     line-height: 1;
     -webkit-text-size-adjust: none;
     -moz-text-size-adjust: none;
@@ -86,16 +80,14 @@
 
 .textLayer .highlight {
     margin: -1px;
-    margin-top: -3px;
     padding: 1px;
     background-color: var(--highlight-bg-color);
     border-radius: 4px;
-    color: #ffffff;
 }
 
-/* .textLayer .highlight.appended {
+.textLayer .highlight.appended {
     position: initial;
-} */
+}
 
 .textLayer .highlight.begin {
     border-radius: 4px 0 0 4px;
